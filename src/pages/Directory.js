@@ -1,84 +1,103 @@
 import React, { useState, useEffect } from "react";
+import Select from 'react-select';
+
 // import API from "../utils/API";
 // import Container from "../components/Container";
 // import SearchForm from "../components/SearchForm";
 // import SearchResults from "../components/SearchResults";
 // import Alert from "../components/Alert";
 
-// class Search extends Component {
-//     state = {
-//       search: "",
-//       name: [],
-//       employees: [],
-//       error: ""
-//     };
-  function Directory(){
-    // When the component mounts, get a list of all available base breeds and update this.state.breeds
-    useEffect(() => {
-        fetchItems();
-    }, []);
-    const [items, setItems] = useState([]);
+// sets style for the drop-down menu
+const customStyles = {
+    control: (provided) => ({
+        ...provided,
+        marginTop: 111,
+        marginRight: '110px',
+        width: '75%',
+        background: '#A333C8',
+        color: 'white',
+        border: 'solid 2px black',
+        cursor: 'pointer'
+    }),
+    option: (provided, state) => ({
+        ...provided,
+        background: state.isSelected ? 'red' : '',
+        cursor: 'pointer'
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        color: 'white'
+    })
+}
+
+// This uses react-select to set the drop-down value options
+const options = [
+    { value: 'male', label: 'male' },
+    { value: 'female', label: 'female' },
+];
+
+
+
+function Directory() { // functional component
+    // When the component mounts, get a list of 100 profiles
+
+    const [employees, setEmployees] = useState([]);
+    const [selectedOption, setSelectedOption] = useState(    { value: 'female', label: 'female' }
+    );
+    // const [newEmployees, setNewEmployees] = useState([]);
+    const handleChange = selectedOption => {
+        console.log(selectedOption.value)
+        setSelectedOption(selectedOption);
+        console.log(`Option selected:`, selectedOption);
+
+    };
+    //return the arr where the gender === the selected option
+    const filterEmployees = (unfilteredEmployees) => {
+
+            const filteredEmployees = unfilteredEmployees.filter(employee => employee.gender === selectedOption.value)
+            console.log("filteredEmployees" , filteredEmployees)
+            return filteredEmployees
+            // setEmployees(filteredEmployees) // sets the state of the employees arr to the new filtered arr
+
+    }
+
     const fetchItems = async () => {
         const data = await fetch(
             "https://randomuser.me/api/?results=100"
         );
-        const items = await data.json();
-        console.log(items.results);
-        setItems(items.results);
+        const employees = await data.json();
+        console.log("results", employees.results);
+        const filteredEmployees = filterEmployees(employees.results)
+        setEmployees(filteredEmployees);
+        // filterEmployees(employees.results)
+
     }
+    useEffect(() => {
+        fetchItems();
+    }, [selectedOption]);
+
+    // to sort use arr method called sort to sort alphabetically and use react-select to create a menu
 
     return (
+
         <div>
-            {items.map(results => (
-                <h1>Name: {results.name.first} {results.name.last}</h1>
+            <Select
+                value={selectedOption}
+                onChange={handleChange}
+                options={options}
+                styles={customStyles}
+                placeholder={"filter by gender"}
+            />
+            {employees.map(results => (
+                <div>
+
+                    <h1>Name: {results.name.first} {results.name.last}</h1>
+                    <h1>Gender: {results.gender} </h1>
+                </div>
             ))}
+
         </div>
     )
-    //   API.getRandomStaffList()
-    //     .then(res => {
-    //       console.log({res});
-    //       this.setState({ employees: res.results });
-    //     })
-    //     .catch(err => console.log(err));
-    // }
-  
-    // handleInputChange = event => {
-    //   this.setState({ search: event.target.value });
-    // };
-  
-    // handleFormSubmit = event => {
-    //   event.preventDefault();
-    //   API.getStaffByName(this.state.search)
-    //     .then(res => {
-    //       if (res.data.status === "error") {
-    //         throw new Error(res.data.message);
-    //       }
-    //       this.setState({ results: res.data.message, error: "" });
-    //     })
-    //     .catch(err => this.setState({ error: err.message }));
-    // };
-    // render() {
-    //   return (
-    //     <div>
-    //       <Container style={{ minHeight: "80%" }}>
-    //         <h1 className="text-center">Employee Directory</h1>
-    //         <Alert
-    //           type="danger"
-    //           style={{ opacity: this.state.error ? 1 : 0, marginBottom: 10 }}
-    //         >
-    //           {this.state.error}
-    //         </Alert>
-    //         {/* <SearchForm
-    //           handleFormSubmit={this.handleFormSubmit}
-    //           handleInputChange={this.handleInputChange}
-    //           employees={this.state.employees}
-    //         />
-    //         <SearchResults results={this.state.results} /> */}
-    //       <h3>{this.employees}</h3>
-    //       </Container>
-    //     </div>
-    //   );
-    // }
-  }
-  
-  export default Directory;
+}
+
+export default Directory;
