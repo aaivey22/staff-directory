@@ -34,6 +34,7 @@ const customStyles = {
 const options = [
     { value: 'male', label: 'male' },
     { value: 'female', label: 'female' },
+    { value: 'All', label: 'All'}
 ];
 
 
@@ -42,12 +43,14 @@ function Directory() { // functional component
     // When the component mounts, get a list of 100 profiles
 
     const [employees, setEmployees] = useState([]);
-    const [selectedOption, setSelectedOption] = useState(    { value: 'female', label: 'female' }
-    );
-    // const [newEmployees, setNewEmployees] = useState([]);
+    const [selectedOption, setSelectedOption] = useState({ value: 'All', label: 'All'});
     const handleChange = selectedOption => {
         console.log(selectedOption.value)
-        setSelectedOption(selectedOption);
+        // if (setSelectedOption.value === 'All')  {
+        //     setSelectedOption(null)
+        // } else {
+            setSelectedOption(selectedOption);
+        // } // func resets the value
         console.log(`Option selected:`, selectedOption);
 
     };
@@ -67,9 +70,15 @@ function Directory() { // functional component
         );
         const employees = await data.json();
         console.log("results", employees.results);
-        const filteredEmployees = filterEmployees(employees.results)
-        setEmployees(filteredEmployees);
-        // filterEmployees(employees.results)
+        //if condition for filtered employees
+
+        if (selectedOption.value === 'All') {
+            setEmployees(employees.results)
+        } else {
+            const filteredEmployees = filterEmployees(employees.results)
+            setEmployees(filteredEmployees);    
+
+        }
 
     }
     useEffect(() => {
