@@ -4,7 +4,7 @@ import "./style.css";
 function Footer() {
   return (
     <footer className="footer">
-      <span>Copyright Staff Directory 2020 by aaivey22@github.com</span>
+      <span>© 2020 Staff Directory by Angela Ivey aaivey22@github.com</span>
     </footer>
   );
 }

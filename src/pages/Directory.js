@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Select from 'react-select';
 
-// import API from "../utils/API";
-// import Container from "../components/Container";
+import Container from "../components/Container";
 // import Alert from "../components/Alert";
 
 // sets style for the drop-down menu
@@ -35,8 +34,6 @@ const options = [
     { value: 'All', label: 'All' }
 ];
 
-
-
 function Directory() { // functional component
     // When the component mounts, get a list of 100 profiles
 
@@ -47,6 +44,7 @@ function Directory() { // functional component
         setSelectedOption(option);
         console.log(`Option selected:`, selectedOption);
     };
+
     //return the arr where the gender === the selected option
     const filterEmployees = (unfilteredEmployees) => {
         const filteredEmployees = unfilteredEmployees.filter(employee => employee.gender === selectedOption.value)
@@ -69,12 +67,10 @@ function Directory() { // functional component
             setEmployees(filteredEmployees);
         }
     }
+
     useEffect(() => {
         fetchItems();
     }, [selectedOption]);
-
-    // to sort use arr method called sort to sort alphabetically and use react-select to create a menu
-    // compare function
 
     const sortDirectory = useCallback(() => {
         let original = employees;
@@ -90,6 +86,8 @@ function Directory() { // functional component
             // names must be equal
             return 0;
         })
+
+        //the spread operator allows you to put an existing array's contents into a new blank array and if the items are objects, the props will be included.
         console.log(sorted)
         setEmployees([...sorted]);
     }, [employees]
@@ -114,6 +112,6 @@ function Directory() { // functional component
             ))}
         </div>
     )
-}
+};
 
 export default Directory;
