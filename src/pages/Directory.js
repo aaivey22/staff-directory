@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Select from 'react-select';
+// import Card from "../components/Card";
 
 import Container from "../components/Container";
 // import Alert from "../components/Alert";
@@ -11,7 +12,7 @@ const customStyles = {
         marginTop: 111,
         marginRight: '110px',
         width: '75%',
-        background: '#A333C8',
+        background: '#000099',
         color: 'white',
         border: 'solid 2px black',
         cursor: 'pointer'
@@ -27,7 +28,7 @@ const customStyles = {
     })
 }
 
-// This uses react-select to set the drop-down value options
+// // This uses react-select to set the drop-down value options
 const options = [
     { value: 'male', label: 'male' },
     { value: 'female', label: 'female' },
@@ -95,23 +96,64 @@ function Directory() { // functional component
 
     return (
         <div>
-            <button onClick={sortDirectory}> Sort A-Z </button>
+            <Container style={{ minHeight: "80%" }}>
+                <div className="card text-center">
+                    <div className="card-header">
+                        Staff Directory
+                    </div>
+                    <div className="card-body">
+                        <h5 className="card-title">Employee List Manager</h5>
+                        <p className="card-text">Sort data alphabetically or filter by gender with the buttons below.</p>
 
-            <Select
-                value={selectedOption}
-                onChange={handleChange}
-                options={options}
-                styles={customStyles}
-                placeholder={"filter by gender"}
-            />
-            {employees.map(results => (
-                <div>
-                    <h1>Name: {results.name.last}, {results.name.first} </h1>
-                    <h1>Gender: {results.gender} </h1>
+                        <div className="btn-group">
+                        <button className="btn btn-success" onClick={sortDirectory}> Sort A-Z </button>
+
+                            {/* <button onClick={sortDirectory}> Sort A-Z </button> */}
+
+                            <Select
+                                value={selectedOption}
+                                onChange={handleChange}
+                                options={options}
+                                styles={customStyles}
+                                placeholder={"filter by gender"}
+                            />
+
+                        </div>
+                        <div className="card-footer text-muted"></div>
+                    </div>
                 </div>
-            ))}
+                {employees.map(results => (
+                    <div>
+                        <h1>Name: {results.name.last}, {results.name.first} </h1>
+                        <h1>Gender: {results.gender} </h1>
+                    </div>
+                ))}
+            </Container>
+
         </div>
     )
 };
 
 export default Directory;
+
+// return (
+//     <div>
+//         <button onClick={sortDirectory}> Sort A-Z </button>
+
+//         <Select
+//             value={selectedOption}
+//             onChange={handleChange}
+//             options={options}
+//             styles={customStyles}
+//             placeholder={"filter by gender"}
+//         />
+//         {employees.map(results => (
+//             <div>
+//                 <h1>Name: {results.name.last}, {results.name.first} </h1>
+//                 <h1>Gender: {results.gender} </h1>
+//             </div>
+//         ))}
+//     </div>
+// )
+// };
+// export default Directory;
