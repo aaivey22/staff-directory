@@ -2,7 +2,7 @@
 ## <img src="https://avatars1.githubusercontent.com/u/58960456?v=4" alt="avatar" style="border-radius: 50px" width="75" />  aaivey22
 
 # <h1 align="center"> staff-directory </h1>
-<h3 align="center"> The staff-directory is a dynamic React application that easily allows users to manage a staff directory with sorting and filters. </h3>
+<h3> The staff-directory is a dynamic React application that easily allows users to manage a staff directory with sorting and filters. </h3>
 
 ---
 
@@ -22,7 +22,7 @@
 ---
 
 ## Snapshot
-<img src="./public/images/staff-dir-img.JPG" alt="staff-directory App Image" style="border-radius: 20px" />
+<img src="./src/images/staff-dir-img.JPG" alt="staff-directory App Image" style="border-radius: 20px" />
 
 <br/>
 <br/>
