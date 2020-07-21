@@ -30,7 +30,7 @@
 ---
 
 ## Technologies
-JS ES6, Node.js, MySQL, Express, React.
+JS ES6, Node.js, Express, React.
 
 <br/>
 <br/>
