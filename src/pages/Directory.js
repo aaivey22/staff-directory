@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Select from 'react-select';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+
+
 // import Card from "../components/Card";
 
 import Container from "../components/Container";
@@ -104,21 +109,18 @@ function Directory() { // functional component
                     <div className="card-body">
                         <h5 className="card-title">Employee List Manager</h5>
                         <p className="card-text">Sort data alphabetically or filter by gender with the buttons below.</p>
-
-                        <div className="btn-group">
-                        <button className="btn btn-success" onClick={sortDirectory}> Sort A-Z </button>
-
-                            {/* <button onClick={sortDirectory}> Sort A-Z </button> */}
-
-                            <Select
-                                value={selectedOption}
-                                onChange={handleChange}
-                                options={options}
-                                styles={customStyles}
-                                placeholder={"filter by gender"}
-                            />
-
-                        </div>
+                        <ButtonGroup color="primary" aria-label="outlined primary button group">
+                            <Button className="btn btn-success" onClick={sortDirectory}> Sort A-Z </Button>
+                            <div className="btn-group">
+                                <Select
+                                    value={selectedOption}
+                                    onChange={handleChange}
+                                    options={options}
+                                    styles={customStyles}
+                                    placeholder={"filter by gender"}
+                                />
+                            </div>
+                        </ButtonGroup>
                         <div className="card-footer text-muted"></div>
                     </div>
                 </div>
